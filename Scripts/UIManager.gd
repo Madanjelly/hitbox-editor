@@ -133,6 +133,7 @@ func load_animated_entities():
 	while true:
 		var file = animated_entities_dir.get_next()
 		if file == "":
+			print("breaking from animated entities list creation")
 			break
 		elif not file.begins_with("."):
 			animated_entities.append(file)
@@ -150,7 +151,8 @@ func _change_sprite(ID: int):
 	if is_instance_valid(get_parent().get_node("Sprite")):
 		get_parent().get_node("Sprite").name = "Old"
 		get_parent().get_node("Old").queue_free()
-	var sprite_path: String = ANIMATED_SCENES_PATH + str(animated_entities_list[ID])
+	var sprite_path: String = ANIMATED_SCENES_PATH + animated_entities_list[ID]
+	print(sprite_path)
 	var new_sprite = load(sprite_path).instance()
 	new_sprite.name = "Sprite"
 	get_parent().add_child(new_sprite)
